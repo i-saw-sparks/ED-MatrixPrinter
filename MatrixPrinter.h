@@ -31,6 +31,14 @@ template <typename T>
 void MatrixPrinter::PrintMatrix(std::vector<std::vector<T>> &matrix, std::ostream &os) const {
     std::vector<std::string> colLabelsTemp = colLabels;
     std::vector<std::string> rowLabelsTemp = rowLabels;
+    int rowMargin = 0, colMargin = 0;
+
+    for (std::string x : rowLabelsTemp)
+        rowMargin = x.length() > rowMargin ? (int)(x.length()) : rowMargin;
+
+    for (std::string x : colLabelsTemp)
+        colMargin = x.length() > colMargin ? (int)(x.length()) : colMargin;
+    colMargin += 3;
 
     if(matrix.size() > colLabelsTemp.size()){
         int res = matrix.size() - colLabelsTemp.size();
@@ -48,16 +56,16 @@ void MatrixPrinter::PrintMatrix(std::vector<std::vector<T>> &matrix, std::ostrea
         }
     }
 
-    os<<std::setw(10)<<" ";
+    os<<std::setw(rowMargin);
     for(auto x : colLabelsTemp){
-        os<<std::setw(10)<<x;
+        os<<x<<std::setw(colMargin);
     }
     os<<std::endl;
     int i = 0;
     for(auto x : matrix){
-        os<<std::setw(10)<<rowLabelsTemp[i];
+        os<<std::setw(rowMargin)<<rowLabelsTemp[i];
         for(auto y : x) {
-            os << std::setw(10) << y << std::setw(10);
+            os << std::setw(colMargin) << y;
         }
         os<<std::endl;
         i++;
