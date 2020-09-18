@@ -13,6 +13,7 @@ class MatrixPrinter {
 private:
     std::vector<std::string> colLabels;
     std::vector<std::string> rowLabels;
+
 public:
     MatrixPrinter();
     MatrixPrinter(std::vector<std::string>, std::vector<std::string>);
@@ -28,14 +29,33 @@ public:
 
 template <typename T>
 void MatrixPrinter::PrintMatrix(std::vector<std::vector<T>> &matrix, std::ostream &os) const {
+    std::vector<std::string> colLabelsTemp = colLabels;
+    std::vector<std::string> rowLabelsTemp = rowLabels;
+
+    if(matrix.size() > colLabelsTemp.size()){
+        int res = matrix.size() - colLabelsTemp.size();
+        for (int i = 0; i < res; ++i) {
+            colLabelsTemp.push_back(" ");
+        }
+    }
+
+    for (auto x: matrix) {
+        if(x.size() > rowLabelsTemp.size()){
+            int res = x.size() - rowLabelsTemp.size();
+            for (int i = 0; i < res; ++i) {
+                rowLabelsTemp.push_back(" ");
+            }
+        }
+    }
+
     os<<std::setw(10)<<" ";
-    for(auto x : colLabels){
+    for(auto x : colLabelsTemp){
         os<<std::setw(10)<<x;
     }
     os<<std::endl;
     int i = 0;
     for(auto x : matrix){
-        os<<std::setw(10)<<rowLabels[i];
+        os<<std::setw(10)<<rowLabelsTemp[i];
         for(auto y : x) {
             os << std::setw(10) << y << std::setw(10);
         }
