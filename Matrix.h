@@ -8,49 +8,18 @@
 #include <vector>
 
 class Matrix {
+
 protected:
+    int size;
     std::vector<std::vector<float>> matrixData;
 public:
     Matrix();
+    Matrix(int n);
     std::vector<std::vector<float>> getMatrixData();
     Matrix operator+(const Matrix &);
     Matrix operator*(const Matrix &);
 
 };
-
-
-Matrix Matrix::operator+(const Matrix &argMat) {
-    Matrix res;
-    for (int i = 0; i < matrixData.size(); ++i) {
-        std::vector<float> vec;
-        for (int j = 0; j < matrixData.size(); ++j) {
-            vec.push_back(matrixData[i][j] + argMat.matrixData[i][j]);
-        }
-        res.matrixData.push_back(vec);
-    }
-    return res;
-}
-
-Matrix Matrix::operator*(const Matrix &argMat) {
-    Matrix res;
-    for (int i = 0; i < matrixData.size(); ++i) {
-        std::vector<float> vec;
-        for (int j = 0; j < matrixData.size(); ++j) {
-            vec.push_back(matrixData[i][j] * argMat.matrixData[i][j]);
-        }
-        res.matrixData.push_back(vec);
-    }
-    return res;
-}
-
-
-std::vector<std::vector<float>> Matrix::getMatrixData() {
-    return matrixData;
-}
-
-Matrix::Matrix() {
-
-}
 
 
 #endif //ACTIVIDAD1_MATRIX_H
