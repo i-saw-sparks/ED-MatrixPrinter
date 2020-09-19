@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MatrixPrinter.h"
 #include "TypeInfo.h"
+#include "RandomMatrix.h"
 
 int main() {
     bool stop = false;
@@ -44,13 +45,49 @@ int main() {
                 break;
             }
 
+            case 2: {
+                int m_size = 0;
+
+                do {
+                    std::cout << "A continuacion, se generaran dos matrices cuadradas aleatorias, "
+                                 "se mostrara su contenido asi como el de la suma de amabas y su multiplicacion. "
+                                 "De que tama" << char(164) << "o gustas que sean las matrices? (3 - 10)" << std::endl<< std::endl;
+                    std::cin>>m_size;
+                }while (m_size < 3 || m_size > 10);
+
+                RandomMatrix rmt1(m_size);
+                RandomMatrix rmt2(m_size);
+                printer.SetRowLabels(std::vector<std::string>());
+                printer.SetColLabels(std::vector<std::string>() = {"     "});
+                std::vector<std::vector<float>> mtz;
+
+                std::cout<<"Matriz 1";
+                mtz = rmt1.getMatrixData();
+                printer.PrintMatrix(mtz, std::cout);
+
+                std::cout<<std::endl<<"Matriz 2";
+                mtz = rmt2.getMatrixData();
+                printer.PrintMatrix(mtz, std::cout);
+
+                std::cout<<std::endl<<"Suma de matrices";
+                mtz = (rmt1 + rmt2).getMatrixData();
+                printer.PrintMatrix(mtz, std::cout);
+
+                printer.SetColLabels(std::vector<std::string>() = {"       "});
+                std::cout<<std::endl<<"Multiplicacion de matrices";
+                mtz = (rmt1 * rmt2).getMatrixData();
+                printer.PrintMatrix(mtz, std::cout);
+                break;
+            }
+
             default: {
                 std::cout << std::endl << "Opcion no valida" << std::endl;
                 break;
             }
         }
 
-        stop = true;
+        std::cout<<std::endl<<"Quieres salir de la ejecucion?"<<std::endl<<"1 - Si"<<std::endl<<"0 - No"<<std::endl;
+        std::cin>>stop;
 
     }while(!stop);
     return 0;
