@@ -6,6 +6,9 @@
 int main() {
     bool stop = false;
     MatrixPrinter printer;
+
+
+
     do {
         int opc = 0;
         std::cout<<"\tMENU"<<std::endl<<std::endl
@@ -16,6 +19,9 @@ int main() {
 
         switch(opc){
             case 1: {
+                std::cout << std::defaultfloat;
+                std::cout << std::setprecision(6);
+
                 std::vector<std::vector<double>> matriz{
                         TypeInfo<signed char>::getTypeInfo(),
                         TypeInfo<unsigned char>::getTypeInfo(),
@@ -47,6 +53,8 @@ int main() {
 
             case 2: {
                 int m_size = 0;
+                std::cout << std::fixed;
+                std::cout << std::setprecision(2);
 
                 do {
                     std::cout << "A continuacion, se generaran dos matrices cuadradas aleatorias, "
